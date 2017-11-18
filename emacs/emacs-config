@@ -13,7 +13,7 @@
  '(custom-enabled-themes (quote (wombat)))
  '(package-selected-packages
    (quote
-    (geiser sourcerer-theme rainbow-delimiters guide-key dashboard exwm xelb company ac-geiser helm))))
+    (sourcerer-theme quack rainbow-delimiters guide-key dashboard exwm xelb company ac-geiser helm))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -69,10 +69,15 @@
 (require 'guide-key)
 (setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
 (guide-key-mode 1)  ; Enable guide-key-mode
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
 ;; Set your lisp system and, optionally, some contribs
-
+(setq scheme-program-name "csi -:c")
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'sourcerer t)
+(add-to-list 'load-path "~/.emacs.d/elpa/")
+(require 'chicken-scheme)
+(add-hook 'scheme-mode-hook 'setup-chicken-scheme)
+(define-key scheme-mode-map (kbd "C-?") 'chicken-show-help)
+
+(add-hook 'scheme-mode-hook 'rainbow-delimiters-mode-enable)
